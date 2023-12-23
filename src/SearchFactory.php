@@ -29,7 +29,7 @@ class SearchFactory
     /**
      * Returns a new Searcher instance.
      *
-     * @return \ProtoneMedia\LaravelCrossEloquentSearch\Searcher
+     * @return \Konekt\Search\Searcher
      */
     public function new(): Searcher
     {

@@ -17,6 +17,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Conditionable;
+use Illuminate\Support\Traits\ForwardsCalls;
 use Konekt\Search\Contracts\SearchDialect;
 use Konekt\Search\Dialects\MySQLDialect;
 use Konekt\Search\Dialects\PostgresDialect;
@@ -28,6 +29,7 @@ use Konekt\Search\Exceptions\UnsupportedOperationException;
 class Searcher
 {
     use Conditionable;
+    use ForwardsCalls;
 
     protected Collection $modelsToSearchThrough;
 
@@ -68,6 +70,21 @@ class Searcher
         $this->modelsToSearchThrough = new Collection();
         $this->dialect = $this->obtainDialect();
         $this->orderByAsc();
+    }
+
+    /**
+     * Handle dynamic method calls into the ModelToSearchThrough instances.
+     *
+     * @param  string  $method
+     * @param  array  $parameters
+     * @return static
+     */
+    public function __call($method, $parameters)
+    {
+        $this->modelsToSearchThrough->each(fn(ModelToSearchThrough $modelToSearchThrough) => 
+            $this->forwardCallTo($modelToSearchThrough, $method, $parameters)
+        );
+        return $this;
     }
 
     public function isCaseInsensitive(): bool
@@ -518,7 +535,7 @@ class Searcher
                 $ids = $results->pluck($key)->filter();
 
                 return $ids->isNotEmpty()
-                    ? $modelToSearchThrough->getFreshBuilder()->whereKey($ids)->get()->keyBy->getKey()
+                    ? $modelToSearchThrough->getModel()->newQueryWithoutScopes()->whereKey($ids)->get()->keyBy->getKey()
                     : null;
             });
 
