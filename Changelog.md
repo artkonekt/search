@@ -1,5 +1,15 @@
 # Konekt Search Changelog
 
+## Unreleased
+#### 2026-XX-YY
+
+- Added Laravel 13 support
+- Added PHP 8.5 support
+- Dropped PHP 8.1 support
+- Dropped Laravel 10 support
+- Changed the minimum Laravel version requirements to v11.46.2, v12.50 and v13.0
+
+
 ## 1.5.0
 #### 2025-03-03
 

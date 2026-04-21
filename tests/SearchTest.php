@@ -87,7 +87,7 @@ class SearchTest extends TestCase
     /** @test */
     public function it_respects_table_prefixes()
     {
-        if (-1 === version_compare(App::version(), '12.1.0')) {
+        if (str_starts_with(App::version(), '12') && -1 === version_compare(App::version(), '12.1.0')) {
             $this->markTestSkipped('This is known not to work on Laravel 12 prior to 12.1.0');
         }
 
