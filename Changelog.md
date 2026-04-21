@@ -1,7 +1,7 @@
 # Konekt Search Changelog
 
-## Unreleased
-#### 2026-XX-YY
+## 1.6.0
+#### 2026-04-21
 
 - Added Laravel 13 support
 - Added PHP 8.5 support

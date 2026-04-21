@@ -20,7 +20,7 @@ and searching through single or multiple columns.
 - MySQL 8.0 (all features)
 - PostgreSQL 11+ (partial feature set)
 - SQLite (partial feature set)
-- Laravel 9.x, 10.x, 11.x, 12.x
+- Laravel 9.x, 10.x, 11.x, 12.x, 13.x
 
 ### Feature Matrix
 
